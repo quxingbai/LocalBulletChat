@@ -1,0 +1,132 @@
+﻿<Application x:Class="LocalBulletChat.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LocalBulletChat"
+             xmlns:c="clr-namespace:LocalBulletChat.Controls;assembly=LocalBulletChat.Controls"
+             StartupUri="ServerSelect.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="MainStyle.Background" Color="#FF1E1E1E"/>
+        <SolidColorBrush x:Key="MainStyle.BorderBrush" Color="#FF3E3E42"/>
+        <SolidColorBrush x:Key="MainStyle.Foreground" Color="White"/>
+        <SolidColorBrush x:Key="Button.IsMouseOver.Background" Color="#FF3E3E42"/>
+        <SolidColorBrush x:Key="Button.IsMouseCaptured.Background" Color="#FF1E1E1E"/>
+
+        <Style TargetType="Button" x:Key="Static.Button">
+            <Setter Property="Background" Value="{StaticResource MainStyle.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource MainStyle.BorderBrush}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Foreground" Value="#FF92CAF4"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Button.IsMouseOver.Background}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseCaptured" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource Button.IsMouseCaptured.Background}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox" x:Key="Static.TextBox">
+            <Setter Property="BorderBrush" Value="{DynamicResource MainStyle.BorderBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource MainStyle.Foreground}"/>
+            <Setter Property="Background" Value="{DynamicResource MainStyle.Background}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Window" x:Key="Static.Window">
+            <Setter Property="WindowStyle" Value="None"/>
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="Background" Value="{DynamicResource MainStyle.Background}"/>
+            <Setter Property="Foreground" Value="{DynamicResource MainStyle.Foreground}"/>
+            <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Window">
+                        <Border Name="StaticWindow_BD" MouseDown="StaticWindow_BD_MouseMove" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid>
+                                <Grid>
+                                    <!--<c:TitleBar VerticalContentAlignment="Center" FontSize="{TemplateBinding FontSize}" Background="{DynamicResource MainStyle.Background}" Header="{TemplateBinding Title}" Height="50"/>-->
+                                    <ContentControl FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{TemplateBinding Title}"/>
+                                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    <c:CommandIcon ToolTip="退出" HorizontalAlignment="Left" VerticalAlignment="Bottom" CommandMark="ParentWindow_Close" IconSource="/LocalBulletChat.Controls;component/Icon/Exit.png"/>
+                                </Grid>
+                                <ResizeGrip HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ContextMenu">
+            <Setter Property="Background" Value="{DynamicResource MainStyle.Background}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <VirtualizingStackPanel IsItemsHost="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value >
+                    <Style TargetType="MenuItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="{DynamicResource MainStyle.Background}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource MainStyle.Foreground}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource MainStyle.BorderBrush}"/>
+                        <Setter Property="Width" Value="250"/>
+                        <Setter Property="Height" Value="20"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="MenuItem">
+                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl Content="{TemplateBinding Icon}"/>
+                                            <ContentPresenter Content="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource Button.IsMouseOver.Background}"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+    </Application.Resources>
+</Application>
